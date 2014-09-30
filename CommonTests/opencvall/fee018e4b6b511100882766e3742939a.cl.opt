@@ -1,0 +1,1 @@
+-D DOUBLE_SUPPORT -D anX=2 -D anY=2 -D ksX=5 -D ksY=5 -D BORDER_REFLECT

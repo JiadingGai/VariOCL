@@ -2,7 +2,7 @@
  * Device code.
  */
  
-#include <mm_runtime.h>
+#include "mm_runtime.h"
 // Thread block size
 #define BLOCK_SIZE 4
   

@@ -1,0 +1,81 @@
+; ModuleID = 'context_switch_0.a.c'
+target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v64:64:64-v128:128:128-a0:0:64-s0:64:64-f80:128:128-n8:16:32:64-S128"
+target triple = "x86_64-unknown-linux-gnu"
+
+@main.A = private unnamed_addr constant [8 x i32] [i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1], align 16
+@main.B = private unnamed_addr constant [8 x i32] [i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1], align 16
+@main.C = private unnamed_addr constant [8 x i32] [i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1, i32 -1], align 16
+@.str = private unnamed_addr constant [13 x i8] c"\0A(%d,%d,%d)\0A\00", align 1
+@.str1 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+
+; Function Attrs: nounwind uwtable
+define i32 @main(i32 %argc, i8** %argv) #0 {
+entry:
+  %retval = alloca i32, align 4
+  %argc.addr = alloca i32, align 4
+  %argv.addr = alloca i8**, align 8
+  %A = alloca [8 x i32], align 16
+  %B = alloca [8 x i32], align 16
+  %C = alloca [8 x i32], align 16
+  %n = alloca i32, align 4
+  %i = alloca i32, align 4
+  store i32 0, i32* %retval
+  store i32 %argc, i32* %argc.addr, align 4
+  store i8** %argv, i8*** %argv.addr, align 8
+  %0 = bitcast [8 x i32]* %A to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* bitcast ([8 x i32]* @main.A to i8*), i64 32, i32 16, i1 false)
+  %1 = bitcast [8 x i32]* %B to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %1, i8* bitcast ([8 x i32]* @main.B to i8*), i64 32, i32 16, i1 false)
+  %2 = bitcast [8 x i32]* %C to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %2, i8* bitcast ([8 x i32]* @main.C to i8*), i64 32, i32 16, i1 false)
+  store i32 7, i32* %n, align 4
+  %arraydecay = getelementptr inbounds [8 x i32]* %A, i32 0, i32 0
+  %arraydecay1 = getelementptr inbounds [8 x i32]* %B, i32 0, i32 0
+  %arraydecay2 = getelementptr inbounds [8 x i32]* %C, i32 0, i32 0
+  %3 = load i32* %n, align 4
+  %call = call i32 (i32*, i32*, i32*, i32, ...)* bitcast (i32 (...)* @b to i32 (i32*, i32*, i32*, i32, ...)*)(i32* %arraydecay, i32* %arraydecay1, i32* %arraydecay2, i32 %3)
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %4 = load i32* %i, align 4
+  %cmp = icmp slt i32 %4, 8
+  br i1 %cmp, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %5 = load i32* %i, align 4
+  %idxprom = sext i32 %5 to i64
+  %arrayidx = getelementptr inbounds [8 x i32]* %A, i32 0, i64 %idxprom
+  %6 = load i32* %arrayidx, align 4
+  %7 = load i32* %i, align 4
+  %idxprom3 = sext i32 %7 to i64
+  %arrayidx4 = getelementptr inbounds [8 x i32]* %B, i32 0, i64 %idxprom3
+  %8 = load i32* %arrayidx4, align 4
+  %9 = load i32* %i, align 4
+  %idxprom5 = sext i32 %9 to i64
+  %arrayidx6 = getelementptr inbounds [8 x i32]* %C, i32 0, i64 %idxprom5
+  %10 = load i32* %arrayidx6, align 4
+  %call7 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([13 x i8]* @.str, i32 0, i32 0), i32 %6, i32 %8, i32 %10)
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body
+  %11 = load i32* %i, align 4
+  %inc = add nsw i32 %11, 1
+  store i32 %inc, i32* %i, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  %call8 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([2 x i8]* @.str1, i32 0, i32 0))
+  ret i32 0
+}
+
+; Function Attrs: nounwind
+declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture, i8* nocapture, i64, i32, i1) #1
+
+declare i32 @b(...) #2
+
+declare i32 @printf(i8*, ...) #2
+
+attributes #0 = { nounwind uwtable "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf"="true" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #1 = { nounwind }
+attributes #2 = { "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf"="true" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "unsafe-fp-math"="false" "use-soft-float"="false" }

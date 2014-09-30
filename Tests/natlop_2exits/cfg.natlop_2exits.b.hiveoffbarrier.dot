@@ -1,0 +1,36 @@
+digraph "CFG for 'natlop_2exits' function" {
+	label="CFG for 'natlop_2exits' function";
+
+	Node0x2b4a350 [shape=record,label="{entry.barrier:\l  call void @barrier(i32 0)\l  br label %entry\l}"];
+	Node0x2b4a350 -> Node0x2b4ac00;
+	Node0x2b4ac00 [shape=record,label="{entry:                                            \l  br label %for.cond\l}"];
+	Node0x2b4ac00 -> Node0x2b4ad40;
+	Node0x2b4ad40 [shape=record,label="{for.cond:                                         \l  %i.0 = phi i32 [ 0, %entry ], [ %inc, %for.inc ]\l  %k.0 = phi i32 [ undef, %entry ], [ %call, %for.inc ]\l  %cmp = icmp slt i32 %i.0, 10\l  br i1 %cmp, label %for.body, label %for.end.mxpa.b4.barrier\l|{<s0>T|<s1>F}}"];
+	Node0x2b4ad40:s0 -> Node0x2b4b720;
+	Node0x2b4ad40:s1 -> Node0x2b4b830;
+	Node0x2b4b720 [shape=record,label="{for.body:                                         \l  %call = call i32 @get_local_id(i32 0) #2\l  %0 = load i32* @xDim, align 4\l  %cmp1 = icmp sgt i32 %call, %0\l  br i1 %cmp1, label %if.then, label %if.else\l|{<s0>T|<s1>F}}"];
+	Node0x2b4b720:s0 -> Node0x2b4bd00;
+	Node0x2b4b720:s1 -> Node0x2b4bdb0;
+	Node0x2b4bd00 [shape=record,label="{if.then:                                          \l  br label %if.end\l}"];
+	Node0x2b4bd00 -> Node0x2b4c080;
+	Node0x2b4bdb0 [shape=record,label="{if.else:                                          \l  br label %if.end4\l}"];
+	Node0x2b4bdb0 -> Node0x2b4c180;
+	Node0x2b4c080 [shape=record,label="{if.end:                                           \l  br label %for.inc\l}"];
+	Node0x2b4c080 -> Node0x2b4aef0;
+	Node0x2b4aef0 [shape=record,label="{for.inc:                                          \l  %inc = add nsw i32 %i.0, 1\l  br label %for.cond\l}"];
+	Node0x2b4aef0 -> Node0x2b4ad40;
+	Node0x2b4b830 [shape=record,label="{for.end.mxpa.b4.barrier:                          \l  br label %for.end\l}"];
+	Node0x2b4b830 -> Node0x2b4c410;
+	Node0x2b4c410 [shape=record,label="{for.end:                                          \l  call void @barrier(i32 1) #2\l  br label %for.end.mxpa.after.barrier\l}"];
+	Node0x2b4c410 -> Node0x2b4c550;
+	Node0x2b4c550 [shape=record,label="{for.end.mxpa.after.barrier:                       \l  %cmp2 = icmp eq i32 %k.0, 0\l  br i1 %cmp2, label %if.then3, label %if.end4\l|{<s0>T|<s1>F}}"];
+	Node0x2b4c550:s0 -> Node0x2b4c6c0;
+	Node0x2b4c550:s1 -> Node0x2b4c180;
+	Node0x2b4c6c0 [shape=record,label="{if.then3:                                         \l  br label %if.end4\l}"];
+	Node0x2b4c6c0 -> Node0x2b4c180;
+	Node0x2b4c180 [shape=record,label="{if.end4:                                          \l  br label %exit.barrier.mxpa.b4.barrier\l}"];
+	Node0x2b4c180 -> Node0x2b4c850;
+	Node0x2b4c850 [shape=record,label="{exit.barrier.mxpa.b4.barrier:                     \l  br label %exit.barrier\l}"];
+	Node0x2b4c850 -> Node0x2b4c930;
+	Node0x2b4c930 [shape=record,label="{exit.barrier:                                     \l  call void @barrier(i32 0)\l  ret void\l}"];
+}

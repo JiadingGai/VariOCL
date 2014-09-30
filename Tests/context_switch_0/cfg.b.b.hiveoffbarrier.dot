@@ -1,0 +1,25 @@
+digraph "CFG for 'b' function" {
+	label="CFG for 'b' function";
+
+	Node0xf6f5a0 [shape=record,label="{entry.barrier:\l  call void @barrier(i32 0)\l  br label %entry\l}"];
+	Node0xf6f5a0 -> Node0xf6ffc0;
+	Node0xf6ffc0 [shape=record,label="{entry:                                            \l  %call = call i32 @get_local_size(i32 0) #2\l  %call1 = call i32 @get_local_size(i32 1) #2\l  %cmp = icmp sgt i32 %call, 0\l  br i1 %cmp, label %if.then, label %if.end.mxpa.b4.barrier\l|{<s0>T|<s1>F}}"];
+	Node0xf6ffc0:s0 -> Node0xf705b0;
+	Node0xf6ffc0:s1 -> Node0xf706b0;
+	Node0xf705b0 [shape=record,label="{if.then:                                          \l  %call2 = call i32 @get_local_id(i32 0) #2\l  %call3 = call i32 @get_local_id(i32 1) #2\l  %call4 = call i32 @get_local_id(i32 2) #2\l  br label %if.end.mxpa.b4.barrier\l}"];
+	Node0xf705b0 -> Node0xf706b0;
+	Node0xf706b0 [shape=record,label="{if.end.mxpa.b4.barrier:                           \l  %i.0 = phi i32 [ %call2, %if.then ], [ 0, %entry ]\l  %j.0 = phi i32 [ %call3, %if.then ], [ 0, %entry ]\l  %k.0 = phi i32 [ %call4, %if.then ], [ 0, %entry ]\l  br label %if.end\l}"];
+	Node0xf706b0 -> Node0xf71190;
+	Node0xf71190 [shape=record,label="{if.end:                                           \l  call void @barrier(i32 0) #2\l  br label %if.end.mxpa.after.barrier\l}"];
+	Node0xf71190 -> Node0xf713c0;
+	Node0xf713c0 [shape=record,label="{if.end.mxpa.after.barrier:                        \l  %mul = mul nsw i32 %k.0, %call\l  %mul5 = mul nsw i32 %mul, %call1\l  %mul6 = mul nsw i32 %j.0, %call\l  %add = add nsw i32 %mul5, %mul6\l  %add7 = add nsw i32 %add, %i.0\l  %cmp8 = icmp slt i32 %add7, %n\l  br i1 %cmp8, label %if.then9, label %if.end14\l|{<s0>T|<s1>F}}"];
+	Node0xf713c0:s0 -> Node0xf70bb0;
+	Node0xf713c0:s1 -> Node0xf70c40;
+	Node0xf70bb0 [shape=record,label="{if.then9:                                         \l  %idxprom = sext i32 %add7 to i64\l  %arrayidx = getelementptr inbounds i32* %A, i64 %idxprom\l  store i32 %i.0, i32* %arrayidx, align 4\l  %idxprom10 = sext i32 %add7 to i64\l  %arrayidx11 = getelementptr inbounds i32* %B, i64 %idxprom10\l  store i32 %j.0, i32* %arrayidx11, align 4\l  %idxprom12 = sext i32 %add7 to i64\l  %arrayidx13 = getelementptr inbounds i32* %C, i64 %idxprom12\l  store i32 %k.0, i32* %arrayidx13, align 4\l  br label %if.end14\l}"];
+	Node0xf70bb0 -> Node0xf70c40;
+	Node0xf70c40 [shape=record,label="{if.end14:                                         \l  br label %exit.barrier.mxpa.b4.barrier\l}"];
+	Node0xf70c40 -> Node0xf72260;
+	Node0xf72260 [shape=record,label="{exit.barrier.mxpa.b4.barrier:                     \l  br label %exit.barrier\l}"];
+	Node0xf72260 -> Node0xf72380;
+	Node0xf72380 [shape=record,label="{exit.barrier:                                     \l  call void @barrier(i32 0)\l  ret void\l}"];
+}

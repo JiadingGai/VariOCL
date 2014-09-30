@@ -1,0 +1,31 @@
+digraph "CFG for 'test_fn' function" {
+	label="CFG for 'test_fn' function";
+
+	Node0x2e258a0 [shape=record,label="{entry.barrier:\l  %inc.reg2mem = alloca i32\l  %i.0.reg2mem = alloca i32\l  %call.reg2mem = alloca i32\l  %i.0.reg2mem6 = alloca i32\l  %\"reg2mem alloca point\" = bitcast i32 0 to i32\l  call void @barrier(i32 0)\l  br label %entry\l}"];
+	Node0x2e258a0 -> Node0x2e25e20;
+	Node0x2e25e20 [shape=record,label="{entry:                                            \l  %call = call i32 @get_global_id(i32 0) #2\l  store i32 %call, i32* %call.reg2mem\l  %call1 = call i32 @get_local_id(i32 0) #2\l  %cmp = icmp eq i32 %call1, 0\l  br i1 %cmp, label %if.then, label %entry.if.end.mxpa.b4.barrier_crit_edge\l|{<s0>T|<s1>F}}"];
+	Node0x2e25e20:s0 -> Node0x2e26600;
+	Node0x2e25e20:s1 -> Node0x2e26720;
+	Node0x2e26720 [shape=record,label="{entry.if.end.mxpa.b4.barrier_crit_edge:           \l  br label %if.end.mxpa.b4.barrier\l}"];
+	Node0x2e26720 -> Node0x2e268b0;
+	Node0x2e26600 [shape=record,label="{if.then:                                          \l  store i32 0, i32* %i.0.reg2mem6\l  br label %for.cond\l}"];
+	Node0x2e26600 -> Node0x2e26a60;
+	Node0x2e26a60 [shape=record,label="{for.cond:                                         \l  %i.0.reload7 = load i32* %i.0.reg2mem6\l  store i32 %i.0.reload7, i32* %i.0.reg2mem\l  %i.0.reload3 = load i32* %i.0.reg2mem\l  %cmp2 = icmp slt i32 %i.0.reload3, 256\l  br i1 %cmp2, label %for.body, label %for.end\l|{<s0>T|<s1>F}}"];
+	Node0x2e26a60:s0 -> Node0x2e26e50;
+	Node0x2e26a60:s1 -> Node0x2e26f40;
+	Node0x2e26e50 [shape=record,label="{for.body:                                         \l  %i.0.reload2 = load i32* %i.0.reg2mem\l  %idxprom = sext i32 %i.0.reload2 to i64\l  %arrayidx = getelementptr inbounds \<8 x i32\>* %src, i64 %idxprom\l  %0 = load \<8 x i32\>* %arrayidx, align 32\l  %i.0.reload1 = load i32* %i.0.reg2mem\l  %idxprom3 = sext i32 %i.0.reload1 to i64\l  %arrayidx4 = getelementptr inbounds \<8 x i32\>* %sSharedStorage, i64 %idxprom3\l  store \<8 x i32\> %0, \<8 x i32\>* %arrayidx4, align 32\l  br label %for.inc\l}"];
+	Node0x2e26e50 -> Node0x2e27760;
+	Node0x2e27760 [shape=record,label="{for.inc:                                          \l  %i.0.reload = load i32* %i.0.reg2mem\l  %inc = add nsw i32 %i.0.reload, 1\l  store i32 %inc, i32* %inc.reg2mem\l  %inc.reload = load i32* %inc.reg2mem\l  store i32 %inc.reload, i32* %i.0.reg2mem6\l  br label %for.cond\l}"];
+	Node0x2e27760 -> Node0x2e26a60;
+	Node0x2e26f40 [shape=record,label="{for.end:                                          \l  br label %if.end.mxpa.b4.barrier\l}"];
+	Node0x2e26f40 -> Node0x2e268b0;
+	Node0x2e268b0 [shape=record,label="{if.end.mxpa.b4.barrier:                           \l  br label %if.end\l}"];
+	Node0x2e268b0 -> Node0x2e27c90;
+	Node0x2e27c90 [shape=record,label="{if.end:                                           \l  call void @barrier(i32 1) #2\l  br label %if.end.mxpa.after.barrier\l}"];
+	Node0x2e27c90 -> Node0x2e27e70;
+	Node0x2e27e70 [shape=record,label="{if.end.mxpa.after.barrier:                        \l  %call.reload5 = load i32* %call.reg2mem\l  %idxprom5 = sext i32 %call.reload5 to i64\l  %arrayidx6 = getelementptr inbounds i32* %offsets, i64 %idxprom5\l  %1 = load i32* %arrayidx6, align 4\l  %call.reload4 = load i32* %call.reg2mem\l  %idxprom7 = sext i32 %call.reload4 to i64\l  %arrayidx8 = getelementptr inbounds i32* %alignmentOffsets, i64 %idxprom7\l  %2 = load i32* %arrayidx8, align 4\l  %idx.ext = zext i32 %2 to i64\l  %add.ptr = getelementptr inbounds \<8 x i32\>* %sSharedStorage, i64 0, i64\l... %idx.ext\l  %call9 = call \<8 x i32\> @vload8(i32 %1, i32* %add.ptr) #2\l  %call.reload = load i32* %call.reg2mem\l  %idxprom10 = sext i32 %call.reload to i64\l  %arrayidx11 = getelementptr inbounds \<8 x i32\>* %results, i64 %idxprom10\l  store \<8 x i32\> %call9, \<8 x i32\>* %arrayidx11, align 32\l  br label %exit.barrier.mxpa.b4.barrier\l}"];
+	Node0x2e27e70 -> Node0x2e28af0;
+	Node0x2e28af0 [shape=record,label="{exit.barrier.mxpa.b4.barrier:                     \l  br label %exit.barrier\l}"];
+	Node0x2e28af0 -> Node0x2e271e0;
+	Node0x2e271e0 [shape=record,label="{exit.barrier:                                     \l  call void @barrier(i32 0)\l  ret void\l}"];
+}

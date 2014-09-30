@@ -1,0 +1,38 @@
+digraph "CFG for 'natlop_2exits' function" {
+	label="CFG for 'natlop_2exits' function";
+
+	Node0x28ae320 [shape=record,label="{entry.barrier:\l  %inc.reg2mem = alloca i32\l  %call.reg2mem = alloca i32\l  %k.0.reg2mem = alloca i32\l  %i.0.reg2mem = alloca i32\l  %k.0.reg2mem3 = alloca i32\l  %i.0.reg2mem5 = alloca i32\l  %\"reg2mem alloca point\" = bitcast i32 0 to i32\l  call void @barrier(i32 0)\l  br label %entry\l}"];
+	Node0x28ae320 -> Node0x28af460;
+	Node0x28af460 [shape=record,label="{entry:                                            \l  store i32 undef, i32* %k.0.reg2mem3\l  store i32 0, i32* %i.0.reg2mem5\l  br label %for.cond\l}"];
+	Node0x28af460 -> Node0x28afad0;
+	Node0x28afad0 [shape=record,label="{for.cond:                                         \l  %i.0.reload6 = load i32* %i.0.reg2mem5\l  %k.0.reload4 = load i32* %k.0.reg2mem3\l  store i32 %i.0.reload6, i32* %i.0.reg2mem\l  store i32 %k.0.reload4, i32* %k.0.reg2mem\l  %i.0.reload2 = load i32* %i.0.reg2mem\l  %cmp = icmp slt i32 %i.0.reload2, 10\l  br i1 %cmp, label %for.body, label %for.end.mxpa.b4.barrier\l|{<s0>T|<s1>F}}"];
+	Node0x28afad0:s0 -> Node0x28b00f0;
+	Node0x28afad0:s1 -> Node0x28b01b0;
+	Node0x28b00f0 [shape=record,label="{for.body:                                         \l  %call = call i32 @get_local_id(i32 0) #2\l  store i32 %call, i32* %call.reg2mem\l  %0 = load i32* @xDim, align 4\l  %call.reload = load i32* %call.reg2mem\l  %cmp1 = icmp sgt i32 %call.reload, %0\l  br i1 %cmp1, label %if.then, label %if.else\l|{<s0>T|<s1>F}}"];
+	Node0x28b00f0:s0 -> Node0x28b0790;
+	Node0x28b00f0:s1 -> Node0x28b08b0;
+	Node0x28b0790 [shape=record,label="{if.then:                                          \l  br label %if.end\l}"];
+	Node0x28b0790 -> Node0x28b0a20;
+	Node0x28b08b0 [shape=record,label="{if.else:                                          \l  br label %if.end4\l}"];
+	Node0x28b08b0 -> Node0x28b0b20;
+	Node0x28b0a20 [shape=record,label="{if.end:                                           \l  br label %for.inc\l}"];
+	Node0x28b0a20 -> Node0x28b0c20;
+	Node0x28b0c20 [shape=record,label="{for.inc:                                          \l  %i.0.reload = load i32* %i.0.reg2mem\l  %inc = add nsw i32 %i.0.reload, 1\l  store i32 %inc, i32* %inc.reg2mem\l  %inc.reload = load i32* %inc.reg2mem\l  %call.reload1 = load i32* %call.reg2mem\l  store i32 %call.reload1, i32* %k.0.reg2mem3\l  store i32 %inc.reload, i32* %i.0.reg2mem5\l  br label %for.cond\l}"];
+	Node0x28b0c20 -> Node0x28afad0;
+	Node0x28b01b0 [shape=record,label="{for.end.mxpa.b4.barrier:                          \l  br label %for.end\l}"];
+	Node0x28b01b0 -> Node0x28b0090;
+	Node0x28b0090 [shape=record,label="{for.end:                                          \l  call void @barrier(i32 1) #2\l  br label %for.end.mxpa.after.barrier\l}"];
+	Node0x28b0090 -> Node0x28b1590;
+	Node0x28b1590 [shape=record,label="{for.end.mxpa.after.barrier:                       \l  %k.0.reload = load i32* %k.0.reg2mem\l  %cmp2 = icmp eq i32 %k.0.reload, 0\l  br i1 %cmp2, label %if.then3, label\l... %for.end.mxpa.after.barrier.if.end4_crit_edge\l|{<s0>T|<s1>F}}"];
+	Node0x28b1590:s0 -> Node0x28b17c0;
+	Node0x28b1590:s1 -> Node0x28b18f0;
+	Node0x28b18f0 [shape=record,label="{for.end.mxpa.after.barrier.if.end4_crit_edge:     \l  br label %if.end4\l}"];
+	Node0x28b18f0 -> Node0x28b0b20;
+	Node0x28b17c0 [shape=record,label="{if.then3:                                         \l  br label %if.end4\l}"];
+	Node0x28b17c0 -> Node0x28b0b20;
+	Node0x28b0b20 [shape=record,label="{if.end4:                                          \l  br label %exit.barrier.mxpa.b4.barrier\l}"];
+	Node0x28b0b20 -> Node0x28b1b80;
+	Node0x28b1b80 [shape=record,label="{exit.barrier.mxpa.b4.barrier:                     \l  br label %exit.barrier\l}"];
+	Node0x28b1b80 -> Node0x28b1c60;
+	Node0x28b1c60 [shape=record,label="{exit.barrier:                                     \l  call void @barrier(i32 0)\l  ret void\l}"];
+}
